@@ -17,3 +17,19 @@ class Solution:
                 stack.append(node.left)
         
         return result
+
+
+
+
+RECURSIVE
+
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        else:
+            result = []
+            result.append(root.val)
+            result.extend(self.preorderTraversal(root.left))
+            result.extend(self.preorderTraversal(root.right))
+        return result
