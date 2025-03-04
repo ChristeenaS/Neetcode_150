@@ -1,0 +1,18 @@
+BRUTE FORCE
+
+class Solution:
+    def height(self, root: Optional[TreeNode]): 
+        if root is None:
+            return 0     
+        return 1 + max(self.height(root.left) , self.height(root.right))
+
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        if root is None:
+            return True
+        left_tree_depth = self.height(root.left)
+        right_tree_depth = self.height(root.right)
+
+        if abs(left_tree_depth - right_tree_depth) >1:
+            return False
+        
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
