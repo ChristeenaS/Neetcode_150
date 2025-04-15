@@ -1,0 +1,39 @@
+n=3
+stack =[None]*n
+top =-1
+
+def push(data):
+    global top
+    if not isFull():
+        stack[top] = data
+        print("Data entered = ", data)
+        top +=1
+
+def pop():
+    global top
+    if not isEmpty():
+        print("Data deleted = ", stack[top])
+        top -=1
+        
+def isFull():
+    if top == n-1:
+        print("Stack is full")
+        return True
+    return False
+    
+def isEmpty():
+    if top == -1:
+        print("Stack is Empty")
+        return True
+    return False
+    
+push(1)
+push(2)
+push(3)
+push(4)
+pop()
+pop()
+push(5)
+pop()
+pop()
+pop()
