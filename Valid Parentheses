@@ -1,13 +1,36 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        stack = []
-        matching_bracket ={')':'(', ']':'[', '}':'{'}
+        stack =[]
+        matching_bracket = {'(':')', "{":"}", "[":"]"}
 
-        for char in s:
-            if char in matching_bracket:
-                top_element = stack.pop() if stack else "#"
-                if matching_bracket[char] != top_element:
-                    return False
+        for bracket in s:
+            if bracket in matching_bracket:
+                stack.append(bracket)
             else:
-                stack.append(char)
-        return not stack
+                if not stack or matching_bracket[stack[-1]] != bracket:
+                    return False
+            
+                stack.pop()
+
+        return len(stack) == 0
+
+
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack =[]
+        matching_bracket = {'(':')', "{":"}", "[":"]"}
+
+        for bracket in s:
+            if bracket in matching_bracket:
+                stack.append(bracket)
+            else:
+                if not stack:
+                    return False
+                else:
+                    top = stack[-1]
+                    if matching_bracket[top] != bracket:
+                         return False
+                    stack.pop()
+
+        return len(stack) == 0
