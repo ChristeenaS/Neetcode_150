@@ -1,0 +1,70 @@
+Recursion
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        def rec(i):
+            if i <0:
+                return 0
+            return max(rec(i-1) , nums[i]+ rec(i-2))
+
+        return rec(n-1)
+
+Memoisation
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        memo = {}
+
+        def rec(i):
+            if i in memo:
+                return memo[i]
+            if i<0:
+                return 0
+            memo[i] = max(rec(i-1) , nums[i]+ rec(i-2))
+            return memo[i]
+
+        return rec(n-1)
+
+Tabulation
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [0] * n
+
+        if n==0: --------0 house
+            return 0
+        if n==1: --------1 house
+            return nums[0]
+
+        dp[0] = nums[0]
+        dp[1] = max(nums[0],nums[1])
+
+        for i in range(2,n):
+            dp[i] = max(dp[i-1] , nums[i]+ dp[i-2])
+
+        return dp[n-1]
+
+Space Optimised
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        if n==0:
+            return 0
+        if n==1:
+            return nums[0]
+
+        prev2 = nums[0]
+        prev1 = max(nums[0],nums[1])
+
+        for i in range(2,n):
+            curr = max(prev1 , nums[i]+ prev2)
+            prev2 = prev1
+            prev1 = curr
+
+        return prev1
