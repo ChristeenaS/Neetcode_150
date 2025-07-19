@@ -1,0 +1,47 @@
+Sort
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        kth_element = len(nums) - k
+        return nums[kth_element]
+
+time - O(nlogn)
+space - O(1)
+
+
+Max Heap
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        max_heap = []
+        for num in nums:
+            max_heap.append(-num)
+        
+        heapq.heapify(max_heap)
+
+        for index in range(k):
+            popped_element = heapq.heappop(max_heap)
+            kth_element = -popped_element
+        
+        return kth_element
+
+time - O(n + klogn)
+space - O(n)
+
+Min Heap
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        min_heap = nums[:k]
+        heapq.heapify(min_heap)
+
+        for num in nums[k:]:
+            if num > min_heap[0]:
+                heapq.heappushpop(min_heap,num)
+        
+        return min_heap[0]
+
+
+time - O(nlogk)
+space - O(k)
