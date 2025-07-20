@@ -1,0 +1,37 @@
+Sorting
+
+class Solution:
+    def distance(points):
+        x,y = points
+        return x**2 + y**2
+
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        points.sort(key=Solution.distance)
+        return points[:k]
+
+time - O(nlogk)
+space - O(n)
+
+
+Max Heap
+
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        max_heap = []
+
+        for x,y in points:
+            distance = -(x**2 + y**2)
+            heapq.heappush(max_heap, (distance,x,y))
+
+            if len(max_heap)>k:
+                heapq.heappop(max_heap)
+            
+        result = []
+        for item in max_heap:
+            distance,x,y = item
+            result.append([x,y])
+
+        return result
+
+time - O(nlogk)
+space - O(k)
